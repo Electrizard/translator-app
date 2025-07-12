@@ -1,0 +1,16 @@
+.languageDiv{
+    background-color:rgb(68, 68, 68);
+    border-radius: 5px;
+    font-family: Arial;
+    padding: 2px 5px;
+    width: 25%;
+    flex: 1;
+}
+.languageDiv h1{
+    color: white;
+}
+
+.languageDiv textarea{
+    font-size: 1.5em;
+    width: 90%;
+}
