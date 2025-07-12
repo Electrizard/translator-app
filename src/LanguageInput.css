@@ -1,4 +1,4 @@
-.languageDiv{
+.language-div{
     background-color:rgb(68, 68, 68);
     border-radius: 5px;
     font-family: Arial;
@@ -6,11 +6,11 @@
     width: 25%;
     flex: 1;
 }
-.languageDiv h1{
+.language-div h1{
     color: white;
 }
 
-.languageDiv textarea{
+.language-div textarea{
     font-size: 1.5em;
     width: 90%;
 }

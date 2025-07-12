@@ -3,9 +3,9 @@ import "./App.css"
 function App() {
   return (
     <div className="language-container">
-      <LanguageInput/>
-      <LanguageInput/>
-      <LanguageInput/>
+      <LanguageInput language="English"/>
+      <LanguageInput language="Chinese"/>
+      <LanguageInput language="Spanish"/>
     </div>
   );
 }
