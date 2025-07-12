@@ -1,13 +1,29 @@
 import "./LanguageInput.css";
 import {useState, useEffect} from "react";
-function LanguageInput({language}){
-
+function LanguageInput({language, setLangOne, setLangTwo, pText}){
+    //Use pText as a parameter not to be confused with text however will be set to same value.
+    //Whenver pText is changed that indicates a different langauge box recieved an input and translated text to what will be put into the other box.
     const [text, setText ] = useState("");
     async function getData(){
-        const response = await fetch(`https://api.mymemory.translated.net/get?q=${encodeURIComponent(text)}&langpair=en|zh`);
-        const responseJson = await response.json();
-        const translation = responseJson.responseData.translatedText;
-        console.log(translation);
+        if(!text.trim()){
+            return
+        };
+        const res = await fetch("https://de.libretranslate.com/translate", {
+            method: "POST",
+            body: JSON.stringify({
+                q: "hello",
+                source: "auto",
+                target: "de",
+                format: "text",
+                alternatives: 3,
+                api_key: ""
+            }),
+            headers: { "Content-Type": "application/json" }
+        });
+        const responseOne = await fetch(`https://lingva.ml/api/v1/en/zh/${encodeURIComponent(text)}`);
+        const responseJsonOne = await responseOne.json();
+        const translationOne = responseJsonOne.translation;
+        setLangOne(translationOne);
     }
 
     function handleChange(e){
@@ -15,14 +31,26 @@ function LanguageInput({language}){
     }
 
     useEffect(() =>{
-        getData();
+        const handler = setTimeout(() =>{
+            getData();
+        }, 500)
+        
+        return (() => {
+            clearTimeout(handler);
+        });
     }, [text]);
+
+
+    useEffect(() =>{
+        setText(pText);
+    }, [pText]);
+
 
     return(
         <div className="language-div">
             <h1>{language}</h1>
             <hr></hr>
-            <textarea onChange={(e) => handleChange(e)}placeholder={`Translate ${language}`}></textarea>
+            <textarea value={text} onChange={(e) => handleChange(e)}placeholder={`Translate ${language}`}>{text}</textarea>
         </div>
     );
 }
